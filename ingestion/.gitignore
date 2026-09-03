@@ -1,1 +1,5 @@
 .env
+venv/
+__pycache__/
+outputs/*.json
+!outputs/FIR_006_vehicle_theft_structured.json

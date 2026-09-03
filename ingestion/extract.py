@@ -1,113 +1,170 @@
 import os
+import time
 import json
 import logging
+import requests
 from pathlib import Path
-from dotenv import load_dotenv
-from paddleocr import PaddleOCR
-import google.generativeai as genai
+import numpy as np
+from PIL import Image
 
-# Load secret environment variables
-load_dotenv()
-API_KEY = os.getenv("GEMINI_API_KEY")
-
-# 1. Suppress OCR debug logs
+# 1. Fix Windows crashes and disable incompatible mkldnn
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+os.environ["PADDLE_PDX_ENABLE_MKLDNN_BYDEFAULT"] = "0"
 logging.getLogger("ppocr").setLevel(logging.ERROR)
 
-# 2. Configure Gemini API
-genai.configure(api_key=API_KEY)
-model = genai.GenerativeModel('gemini-3.6-flash')
+from paddleocr import PaddleOCR
 
-# 3. Initialize OCR Engine
-print("Initializing PaddleOCR Engine...")
-ocr = PaddleOCR(use_angle_cls=True, lang='en', enable_mkldnn=False)
+# 2. Initialize PaddleOCR securely offline
+ocr = PaddleOCR(lang='en', enable_mkldnn=False, use_textline_orientation=False)
 
-# 4. Setup Input and Output Folders
 input_dir = Path("inputs")
 output_dir = Path("outputs")
-input_dir.mkdir(exist_ok=True)
 output_dir.mkdir(exist_ok=True)
 
-print(f"Looking for FIR images in the '{input_dir.name}' folder...\n")
-print("=" * 60)
+MAX_SIDE = 1280
 
-valid_extensions = {".jpg", ".jpeg", ".png"}
+def load_and_resize(img_path, max_side=MAX_SIDE):
+    img = Image.open(img_path).convert("RGB")
+    w, h = img.size
+    scale = max_side / max(w, h)
+    if scale < 1:
+        img = img.resize((int(w * scale), int(h * scale)))
+    return np.array(img)
 
-# 5. Loop through every image in the inputs folder
-for image_path in input_dir.iterdir():
-    if image_path.suffix.lower() in valid_extensions:
-        print(f"-> Processing {image_path.name}...")
+def safe_extract_text(result):
+    """Robustly handles multiple PaddleOCR/PaddleX output structures."""
+    texts = []
+    if not result: return texts
+    
+    for page in result:
+        if page is None: continue
         
-        try:
-            # Step A: Text Extraction
-            raw_result = ocr.ocr(str(image_path))
-            lines = []
+        if hasattr(page, 'rec_texts') and page.rec_texts:
+            texts.extend([str(t) for t in page.rec_texts])
+            continue
             
-            if isinstance(raw_result, list) and len(raw_result) > 0 and isinstance(raw_result[0], dict):
-                texts = raw_result[0].get('rec_texts') or raw_result[0].get('rec_text') or []
-                lines = [str(t).strip() for t in texts if str(t).strip()]
-            elif isinstance(raw_result, list) and raw_result[0]:
-                lines = [line[1][0].strip() for line in raw_result[0] if line[1][0].strip()]
+        if hasattr(page, 'get') and page.get('rec_texts'):
+            texts.extend([str(t) for t in page.get('rec_texts')])
+            continue
 
-            full_text = "\n".join(lines)
-            
-            # Step B: LLM-Based Zero-Shot Schema Mapping
-            prompt = f"""
-            Extract the following information from this Indian police complaint letter and return ONLY a valid JSON object. 
-            If a field is missing, use null.
-            
-            Schema:
+        if isinstance(page, (list, tuple)):
+            for line in page:
+                try:
+                    text_part = line[1]
+                    if isinstance(text_part, (tuple, list)) and len(text_part) > 0:
+                        texts.append(str(text_part[0]))
+                    elif isinstance(text_part, str):
+                        texts.append(text_part)
+                except (IndexError, TypeError, KeyError):
+                    continue
+    return texts
+def parse_with_ollama(raw_text):
+    prompt = f"""
+    You are an AI forensics assistant. Read the OCR text from this First Information Report (FIR) 
+    and return ONLY valid JSON matching this exact structure. 
+    Separate specific identifiers like license plates, addresses, bank accounts, and officer names for graph linking.
+    
+    {{
+        "fir_no": "string",
+        "district": "string",
+        "police_station": "string",
+        "date_reported": "string",
+        "date_occurrence": "string",
+        "crime_type": "string",
+        "acts_sections": ["list of legal sections"],
+        "investigating_officer": "string",
+        "complainant": {{
+            "name": "string",
+            "address": "string"
+        }},
+        "accused": [
             {{
-              "document_type": "FIRST INFORMATION REPORT / COMPLAINT",
-              "fir_or_complaint_date": null,
-              "police_station": null,
-              "district_or_city": null,
-              "complainant": {{
-                "name": null,
-                "relation_type": null,
-                "relation_name": null,
-                "address": null,
-                "phone": null
-              }},
-              "incident_details": {{
-                "date_of_incident": null,
-                "description": null,
-                "stolen_items": null,
-                "stolen_amount_value": null,
-                "ipc_sections_or_allegations": []
-              }},
-              "suspects_or_accused": [
-                {{
-                  "name": null,
-                  "organization_or_address": null,
-                  "phone_numbers": []
-                }}
-              ]
+                "name": "string",
+                "address": "string"
             }}
+        ],
+        "stolen_properties": {{
+            "vehicles": [
+                {{
+                    "make_model": "string",
+                    "color": "string",
+                    "license_plate": "string"
+                }}
+            ],
+            "cash_value": "string or null",
+            "other_items": ["list of items like laptops, jewelry, etc."]
+        }},
+        "digital_and_financial_indicators": {{
+            "bank_accounts": ["list of account numbers"],
+            "upi_ids": ["list of UPI IDs"],
+            "phone_numbers": ["list of phone numbers"]
+        }},
+        "incident_location": "string",
+        "narrative": "A brief 2-sentence summary of the incident"
+    }}
 
-            Document Text:
-            {full_text}
-            """
+    Document Text:
+    {raw_text}
+    """
+    
+    try:
+        response = requests.post("http://localhost:11434/api/generate", json={
+            "model": "llama3.1",
+            "prompt": prompt,
+            "format": "json",
+            "stream": False
+        }, timeout=120)
+        response.raise_for_status()
+        return json.loads(response.json()['response'])
+    
+    except requests.exceptions.ConnectionError:
+        print("[FATAL] Ollama is not running. Please start Ollama in the background.")
+        return None
+    except Exception as e:
+        print(f"[ERROR] Local LLM parsing failed: {e}")
+        return None
 
-            response = model.generate_content(prompt)
+def process_pipeline():
+    images = sorted(list(input_dir.glob("*.jpg")))
+    
+    for img_path in images:
+        output_file = output_dir / f"{img_path.stem}_structured.json"
+        
+        # Delete the existing JSON to force reprocessing
+        if output_file.exists():
+            output_file.unlink()
             
-            # Clean markdown formatting
-            json_string = response.text.strip()
-            if json_string.startswith("```json"):
-                json_string = json_string[7:]
-            if json_string.endswith("```"):
-                json_string = json_string[:-3]
+        print(f"-> Processing {img_path.name}...")
+
+        try:
+            start_time = time.time()  # Start tracking time
+
+            # 1. OCR Extraction (Offline Vision)
+            img_array = load_and_resize(img_path)
+            result = ocr.predict(img_array) 
+            
+            raw_text_blocks = safe_extract_text(result)
+            full_text = "\n".join(raw_text_blocks)
+
+            if not full_text.strip():
+                print(f"[WARNING] No text found for {img_path.name}")
+                continue
+
+            # 2. LLM Structuring (Offline NLP)
+            structured_data = parse_with_ollama(full_text)
+
+            if structured_data:
+                with open(output_file, 'w') as f:
+                    json.dump(structured_data, f, indent=4)
                 
-            parsed_json = json.loads(json_string.strip())
-
-            # Step C: Save structured output to the outputs folder
-            output_file = output_dir / f"{image_path.name}_structured.json"
-            with open(output_file, "w", encoding="utf-8") as f:
-                json.dump(parsed_json, f, indent=2, ensure_ascii=False)
-
-            print(f"   [SUCCESS] Saved as {output_file.name}")
+                end_time = time.time()  # Stop tracking time
+                elapsed = end_time - start_time
+                
+                print(f"[SUCCESS] Exported -> {output_file.name} (Took {elapsed:.2f} seconds)")
 
         except Exception as e:
-            print(f"   [ERROR] Failed to process {image_path.name}: {e}")
+            print(f"[ERROR] {img_path.name}: {e}")
 
-print("\n" + "=" * 60)
-print("BATCH INGESTION COMPLETE")
+if __name__ == "__main__":
+    process_pipeline()
+    print("Air-gapped ingestion complete.")

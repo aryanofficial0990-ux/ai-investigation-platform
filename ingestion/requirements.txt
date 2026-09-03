@@ -1,0 +1,6 @@
+paddlepaddle
+paddleocr
+pillow
+numpy
+requests
+python-dotenv
