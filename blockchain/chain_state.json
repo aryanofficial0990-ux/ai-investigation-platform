@@ -1,0 +1,271 @@
+[
+  {
+    "index": 0,
+    "timestamp": "2026-01-01T00:00:00Z",
+    "action": "GENESIS",
+    "merkle_root": "0000000000000000000000000000000000000000000000000000000000000000",
+    "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "hash": "ce7fca3c885cd7d7ce0bbcd02ac83a0fcce828b1c17a9169a1df3e460b282960",
+    "records": []
+  },
+  {
+    "index": 1,
+    "timestamp": "2026-09-04T15:55:21.973379+00:00",
+    "action": "INITIAL_AI_INGESTION",
+    "merkle_root": "e83291a5fe6171f8ef77f6b80bb136f3a8b43f36650a6d548828bf15d95dae35",
+    "prev_hash": "ce7fca3c885cd7d7ce0bbcd02ac83a0fcce828b1c17a9169a1df3e460b282960",
+    "hash": "b43e2a156c34993d9b2131d34a6514b3bb925bb6144fde59273e6914c240c09f",
+    "records": [
+      {
+        "fir_no": "1001/2026",
+        "source_file": "FIR_001_vehicle_theft_structured.json",
+        "data_hash": "aecacaef86a72b33fd24d536f516972379554e8019e880635b984db322e76136"
+      },
+      {
+        "fir_no": "1002/2026",
+        "source_file": "FIR_002_cyber_fraud_structured.json",
+        "data_hash": "aeb70d5134fe98a0da5cb67268a305cd4acbe0630f9055eeb63e941ed18daea6"
+      },
+      {
+        "fir_no": "1003/202629",
+        "source_file": "FIR_003_structuring_fraud_structured.json",
+        "data_hash": "2d4890d2291ffb699d29d442db49b9f1efc6b12909f8a7b5629277787d90c0e9"
+      },
+      {
+        "fir_no": "1004/2026",
+        "source_file": "FIR_004_financial_cheating_structured.json",
+        "data_hash": "f5a11170f4e287fbe9acc6ce0136ea4f0bbfc91571ede471d8618d65a013e441"
+      },
+      {
+        "fir_no": "1005/2026",
+        "source_file": "FIR_005_house_trespass_burglary_structured.json",
+        "data_hash": "e1feb1345a4bead46f1acfffed43e7062aa4fad68cb7b5f78b169a9e9e921325"
+      },
+      {
+        "fir_no": "1006/2026",
+        "source_file": "FIR_006_vehicle_theft_structured.json",
+        "data_hash": "554bd6b88e216a4d4f50fffe4417c7fb40221c017341276061c325b2479ff72f"
+      },
+      {
+        "fir_no": "1007/2026",
+        "source_file": "FIR_007_cyber_fraud_structured.json",
+        "data_hash": "df55ff4b051a57da7c7898aa7d8b9d0f8f34281c0b6ae42b9c9160b1d36a1bcc"
+      },
+      {
+        "fir_no": "1008/2026",
+        "source_file": "FIR_008_house_trespass_burglary_structured.json",
+        "data_hash": "edf754dc41659866768353969ec351b406d29eea15d8bd7eeaedf3aabae0e399"
+      },
+      {
+        "fir_no": "1009/2026",
+        "source_file": "FIR_009_house_trespass_burglary_structured.json",
+        "data_hash": "c3bf4ea99354fe1e9f148b7583fda3c40fe230627e43214a93d8b5463361a171"
+      },
+      {
+        "fir_no": "1010/2026",
+        "source_file": "FIR_010_cyber_fraud_structured.json",
+        "data_hash": "9d785d9ce7af4612bd56515fd5306bcf2e5b598adcea96113e180ed27a9eaa5a"
+      },
+      {
+        "fir_no": "1011/2026",
+        "source_file": "FIR_011_vehicle_theft_structured.json",
+        "data_hash": "0484ba4b1b20fd42fbe93b3e3bcd79e7f6e17d61fa2168a7963bc0c6e81f1d1d"
+      },
+      {
+        "fir_no": "1012/2026",
+        "source_file": "FIR_012_structuring_fraud_structured.json",
+        "data_hash": "5ca9c917735ded76c3953f94760561f67197e3e2d9fc8662410d41630ed339f1"
+      },
+      {
+        "fir_no": "1013/202623-03-2026",
+        "source_file": "FIR_013_vehicle_theft_structured.json",
+        "data_hash": "8b8c45177f89fa126fe863bf38967bc26a0918ab414cc97034acf90212f63bbe"
+      },
+      {
+        "fir_no": "1014/202606",
+        "source_file": "FIR_014_structuring_fraud_structured.json",
+        "data_hash": "578bea9d786ee56c0faa063d09ddacdbe7c949a00913d26d719059c0dc7633ac"
+      },
+      {
+        "fir_no": "1015/2026",
+        "source_file": "FIR_015_vehicle_theft_structured.json",
+        "data_hash": "9a45ba14196719505e1a5474af15681f5d514900aaea8d1dd317f335b13b5065"
+      },
+      {
+        "fir_no": "1016/2026",
+        "source_file": "FIR_016_house_trespass_burglary_structured.json",
+        "data_hash": "e969480065954051cca39d96cb65f0cea429b63c89d1ec6504016342de0f2d88"
+      },
+      {
+        "fir_no": "1017/202623",
+        "source_file": "FIR_017_financial_cheating_structured.json",
+        "data_hash": "a685af36b9ecc7e124e2938c15ba38cf2512c6e23776597b9cb0c0b36fc9059a"
+      },
+      {
+        "fir_no": "1018/202604-01-2026",
+        "source_file": "FIR_018_vehicle_theft_structured.json",
+        "data_hash": "101571e433bb8d1a6f71009feab2c0bd82eeb35a519bcfe8c6740038ee5ea1a0"
+      },
+      {
+        "fir_no": "1019/2026",
+        "source_file": "FIR_019_assault_intimidation_structured.json",
+        "data_hash": "f001dbc2e032e4a0d85ea69a3be63506ace5b3592b9b390271662b1747c02efc"
+      },
+      {
+        "fir_no": "1020/2026",
+        "source_file": "FIR_020_financial_cheating_structured.json",
+        "data_hash": "e984bc42fd6417e5918c73dcf2111fb10209c81bf494bc581422a854ed04f2ac"
+      },
+      {
+        "fir_no": "1021/2026",
+        "source_file": "FIR_021_cyber_fraud_structured.json",
+        "data_hash": "b1a978fa1758a544793a544f5cf80476a56e09d116eeb21956a9ee2728e52807"
+      },
+      {
+        "fir_no": "1022/202624-07-2026",
+        "source_file": "FIR_022_house_trespass_burglary_structured.json",
+        "data_hash": "99cfb44bba6f650efd522731ff425813e2b5fd67d12828c93999b5093e03e48e"
+      },
+      {
+        "fir_no": "1023/2026",
+        "source_file": "FIR_023_financial_cheating_structured.json",
+        "data_hash": "0c1c1a2f061d167d280aaf24b3049ad14f29cf9eaef95e77ce645c8f9754eb43"
+      },
+      {
+        "fir_no": "1024/2026",
+        "source_file": "FIR_024_financial_cheating_structured.json",
+        "data_hash": "6133ba8fd76cc073b05cae869d3d8d51727e5e9acf4ae568a0822f8f5fed2a0d"
+      },
+      {
+        "fir_no": "1025/2026",
+        "source_file": "FIR_025_assault_intimidation_structured.json",
+        "data_hash": "002d1df01fc513ac97166b48b37c6625bde36c20d61d0d53adc8f2cfae829a98"
+      },
+      {
+        "fir_no": "1026/202606-03-2026",
+        "source_file": "FIR_026_vehicle_theft_structured.json",
+        "data_hash": "cf6650c92f38f292af6d17130a7de6892032c0af1a596f051aa082e45e045481"
+      },
+      {
+        "fir_no": "1027/2026",
+        "source_file": "FIR_027_assault_intimidation_structured.json",
+        "data_hash": "837efeefa21def9678d820d8d50986ada80976d80d4b42ba639ae16305a5d5dc"
+      },
+      {
+        "fir_no": "1028/202628-01-2026",
+        "source_file": "FIR_028_financial_cheating_structured.json",
+        "data_hash": "1acdf90e3217385ea45771a25eae28148d8e28ef6985c7dff3e20d0effbd59c3"
+      },
+      {
+        "fir_no": "1029/2026",
+        "source_file": "FIR_029_house_trespass_burglary_structured.json",
+        "data_hash": "8da28f4cd4bdde26074d5d149e075567ac0edca5e961fe4a6b0faddeaccc0c11"
+      },
+      {
+        "fir_no": "1030/2026",
+        "source_file": "FIR_030_cyber_fraud_structured.json",
+        "data_hash": "ec67249132f749bf732ecfdaa73999ca3def6dbea59566ddbb9a21a118963266"
+      },
+      {
+        "fir_no": "1031/202612",
+        "source_file": "FIR_031_vehicle_theft_structured.json",
+        "data_hash": "60f7b43bda4e204930ec69df7335131cc40fd0378c93220408563e7280c80a30"
+      },
+      {
+        "fir_no": "1032/2026",
+        "source_file": "FIR_032_assault_intimidation_structured.json",
+        "data_hash": "202854eec3d3f4e351bbb24736384ac9f79366fbd94f1c01abba26134df89f52"
+      },
+      {
+        "fir_no": "1033/2026",
+        "source_file": "FIR_033_structuring_fraud_structured.json",
+        "data_hash": "d678e2579be548da5c3be5458be1b48ecd50b70e0016f2808a588591bd506113"
+      },
+      {
+        "fir_no": "1034/202618",
+        "source_file": "FIR_034_structuring_fraud_structured.json",
+        "data_hash": "c5809a32473b323feabee493def65067118ad01bcbfcfa22b9b139bd59a3cdf2"
+      },
+      {
+        "fir_no": "1035/2026",
+        "source_file": "FIR_035_assault_intimidation_structured.json",
+        "data_hash": "0cafa9270a320d436cd1817f40f5229acb7b6207dfc3c987d1c13283f0cb0a27"
+      },
+      {
+        "fir_no": "1036/2026",
+        "source_file": "FIR_036_cyber_fraud_structured.json",
+        "data_hash": "113997ff9083d571eb6d4a8956b7d9a8155ee6b2662892336ff9f9e84a3463ef"
+      },
+      {
+        "fir_no": "1037/2026",
+        "source_file": "FIR_037_structuring_fraud_structured.json",
+        "data_hash": "3d67aaa05d925f078fd7d680d926a1eb2d38e3df2641c96145b4c803aaf116f5"
+      },
+      {
+        "fir_no": "1038/2026",
+        "source_file": "FIR_038_financial_cheating_structured.json",
+        "data_hash": "0e1b07a7554b934319d841884357695de0f356def99930f8479e3de5196eeacb"
+      },
+      {
+        "fir_no": "1039/2026",
+        "source_file": "FIR_039_structuring_fraud_structured.json",
+        "data_hash": "46c8d2930af301ce20b900a9068979e5adf00828201fd1f62bfecc2ed3de48d5"
+      },
+      {
+        "fir_no": "1040/202624-07-2026",
+        "source_file": "FIR_040_assault_intimidation_structured.json",
+        "data_hash": "b590462361df7221e9f2ed7f2f9f70935bc8b01e093389e67e0c76dd4f16c0e8"
+      },
+      {
+        "fir_no": "1041/2026",
+        "source_file": "FIR_041_financial_cheating_structured.json",
+        "data_hash": "dd41db06c1149c801854da28945daa1d2541463a2b5036e7a633786ffa07405b"
+      },
+      {
+        "fir_no": "1042/202609-02-2026",
+        "source_file": "FIR_042_cyber_fraud_structured.json",
+        "data_hash": "3b5a81e10ab0d523fbb09df1db84f1ee10d64446d268f4576f39fc50bc655b03"
+      },
+      {
+        "fir_no": "1043/202621",
+        "source_file": "FIR_043_vehicle_theft_structured.json",
+        "data_hash": "842bf9df45989aa89f2f7a60ba3ac15131b67c94c2146f91f4fdb8fd76cc6d85"
+      },
+      {
+        "fir_no": "1044/202603-07-2026",
+        "source_file": "FIR_044_house_trespass_burglary_structured.json",
+        "data_hash": "63c4580db72b1acb809b857a88b4af9e454bad66074b974cf7a6fb1c1cfd43e5"
+      },
+      {
+        "fir_no": "1045/202604-04-2026",
+        "source_file": "FIR_045_house_trespass_burglary_structured.json",
+        "data_hash": "fe85a78142c4caa8c4a03f35e6cb5414ed04b0f6ca458490bf7ed329f7c6bb65"
+      },
+      {
+        "fir_no": "1046/2026",
+        "source_file": "FIR_046_assault_intimidation_structured.json",
+        "data_hash": "9fe7c4917780302ee748611588657a157cfef65df9caa35fb97a3de02ae64456"
+      },
+      {
+        "fir_no": "1047/2026",
+        "source_file": "FIR_047_cyber_fraud_structured.json",
+        "data_hash": "217dea539b505a4dd45aa6a39fd9e29a1c76b5302adeb4922f9591d03b611b9d"
+      },
+      {
+        "fir_no": "1048/2026",
+        "source_file": "FIR_048_financial_cheating_structured.json",
+        "data_hash": "f5b90698feedf164b3f63558d383d8263a9a3418a0f61694305a808acbc819b4"
+      },
+      {
+        "fir_no": "1049/202628-04-2026",
+        "source_file": "FIR_049_assault_intimidation_structured.json",
+        "data_hash": "d0dae0b6028a8d3b672e84f85dcc58689e00027820f4a0178e9f66b01889fcc6"
+      },
+      {
+        "fir_no": "1050/202604-01-2026",
+        "source_file": "FIR_050_structuring_fraud_structured.json",
+        "data_hash": "6e0d0328e395603305717052156d8f48318cb4a52a0194db520ee1a4369a7647"
+      }
+    ]
+  }
+]
