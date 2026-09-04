@@ -1,0 +1,50 @@
+{
+    "fir_no": "1006/2026",
+    "district": "Franklin, TN",
+    "police_station": "Harbor Police Station, Franklin",
+    "date_reported": "18-02-2026 07:23 hrs",
+    "date_occurrence": "18-02-2026 03:23 hrs",
+    "crime_type": "Theft",
+    "acts_sections": [
+        "379 IPC",
+        "411 IPC"
+    ],
+    "investigating_officer": {
+        "name": "Suresh Tiwari",
+        "rank": "Assistant Sub-Inspector",
+        "badge_service_no": "SVC9059692"
+    },
+    "complainant": {
+        "name": "Richard Miller",
+        "date_of_birth": "1996-11-24",
+        "occupation": "Contractor",
+        "address": "Franklin, TN",
+        "contact_no": "+91-97109648",
+        "id_reference": "ID8954941"
+    },
+    "accused": [
+        {
+            "name": "Ashley Campbell",
+            "last_known_address": "Franklin, TN",
+            "relation_to_complainant": "Acquaintance"
+        }
+    ],
+    "stolen_properties": {
+        "vehicles": [
+            {
+                "make_model": "Honda Civic (2018)",
+                "color": "White",
+                "license_plate": "VQK9313"
+            }
+        ],
+        "cash_value": "Rs. 461,532",
+        "other_items": []
+    },
+    "digital_and_financial_indicators": {
+        "bank_accounts": [],
+        "upi_ids": [],
+        "phone_numbers": []
+    },
+    "incident_location": "Sunset Way Self-Storage, Franklin, TN",
+    "narrative": "The complainant states that on 18-02-2026 at about 03:23 hrs, near Sunset Way Self-Storage, Franklin, TN, a White Honda Civic (2018) bearing registration number VQK9313 belonging to the complainant was found missing from the parking area. Despite a thorough search, the vehicle could not be located. The complainant suspects the involvement of unknown persons and requests that a case be registered and the vehicle traced."
+}
