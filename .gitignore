@@ -39,4 +39,4 @@ env/
 # =========================
 # Node.js (For your API later)
 # =========================
-node_modules/
+node_modules/.vscode/
