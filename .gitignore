@@ -14,4 +14,29 @@ __pycache__/
 .env
 .env.*
 !.env.example
-.vscode/
+# =========================
+# Hyperledger Fabric Ignore
+# =========================
+fabric-samples/bin/
+fabric-samples/config/
+fabric-samples/test-network/organizations/
+fabric-samples/test-network/channel-artifacts/
+fabric-samples/test-network/system-genesis-block/
+fabric-samples/test-network/log.txt
+fabric-samples/**/*.tar.gz
+
+# =========================
+# Python & AI Ignore
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.env
+.pytest_cache/
+
+# =========================
+# Node.js (For your API later)
+# =========================
+node_modules/.vscode/
